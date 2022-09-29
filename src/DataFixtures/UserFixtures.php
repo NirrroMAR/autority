@@ -20,29 +20,43 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $date = new \DatetimeImmutable('now');
-        $user = new User();
-        $password = $this->hasher->hashPassword($user, '0000');
-        $user->setEmail('martins.n.adm@gmail.com')
-        ->setPassword($password)
-        ->setRoles(['ROLE_ADMIN'])
-        ->setCreatedAt($date)
-        ->setUpdatedAt($date);
+        $admin = new User();
+        $password = $this->hasher->hashPassword($admin, '0000');
+        $admin->setEmail('martins.n.adm@gmail.com')
+            ->setPassword($password)
+            ->setRoles(['ROLE_ADMIN'])
+            ->setCreatedAt($date)
+            ->setUpdatedAt($date);
 
-        $manager->persist($user);
-echo 'user created: ' . $user->getEmail();
-for ($i=0; $i < 50 ; $i++) { 
-    # code...
-    $user = new User();
-    $password = $this->hasher->hashPassword($user, '0000');
-    $user->setEmail('user'.$i.'@gmail.com')
-    ->setPassword($password)
-    ->setRoles(['ROLE_USER'])
-    ->setCreatedAt($date)
-    ->setUpdatedAt($date);
+        $manager->persist($admin);
+        $this->addReference('admin1', $admin);
+        echo 'user created: ' . $admin->getEmail() . PHP_EOL;
 
-    $manager->persist($user);
-echo 'user created: ' . $user->getEmail();
-}
+        $admin = new User();
+        $password = $this->hasher->hashPassword($admin, '0000');
+        $admin->setEmail('titouan.thd@gmail.com')
+            ->setPassword($password)
+            ->setRoles(['ROLE_ADMIN'])
+            ->setCreatedAt($date)
+            ->setUpdatedAt($date);
+
+        $manager->persist($admin);
+        $this->addReference('admin2', $admin);
+        echo 'user created: ' . $admin->getEmail() . PHP_EOL;
+
+        for ($i = 0; $i < 50; $i++) {
+            $user = new User();
+            $password = $this->hasher->hashPassword($user, '0000');
+            $user->setEmail('user' . $i . '@gmail.com')
+                ->setPassword($password)
+                ->setRoles(['ROLE_USER'])
+                ->setCreatedAt($date)
+                ->setUpdatedAt($date);
+
+            $manager->persist($user);
+            echo 'user created: ' . $user->getEmail() . PHP_EOL;
+            $this->addReference('user' . $i, $user);
+        }
         $manager->flush();
     }
 }
