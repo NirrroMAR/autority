@@ -19,15 +19,15 @@
             {% include "parts/header.html.twig" %}
             {% endblock %}
         </header>
+            <span>layoutdefault</span>
         <main>
-            {% block main %}{% endblock %}
+            {% block main %}
+            {% endblock %}
         </main>
         <footer>
             {% block footer %}
             {% include "parts/footer.html.twig" %}
             {% endblock %}
-
-        {% block main %}{% endblock %}
         </footer>
     </body>
 
