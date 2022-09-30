@@ -15,7 +15,7 @@ class TagFixtures extends Fixture implements DependentFixtureInterface
     {
         $date = new \DatetimeImmutable('now');
     
-
+        // create 50 fake tag
         for ($i = 0; $i < 50; $i++) {
             $tag = new Tag();
             $tag->setName('tag' . $i)
