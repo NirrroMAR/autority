@@ -1,1 +1,14 @@
-<p>
+<hr>
+<div class="container">
+	<p class="mb-0">
+		Copyright (C) 2022 | Autority all right reserved | Boosted by
+		<a href="https://siclem.fr/">Siclem</a>
+	</p>
+</div>
+
+{% set debuger = 'on' %}
+{% if debuger == 'on' %}
+	<div class="container my-3">
+		{{ component('debuger', {data: data}) }}
+	</div>
+{% endif %}

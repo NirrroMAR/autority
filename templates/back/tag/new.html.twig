@@ -1,11 +1,11 @@
-{% extends 'layouts/default.html.twig' %}
+{% extends 'layouts/' ~ data.layout ~ '.html.twig' %}
 
 {% block title %}New Tag{% endblock %}
 
 {% block main %}
-    <h1>Create new Tag</h1>
-
-    {{ include('tag/_form.html.twig') }}
+<div class="container">
+    {{ include('back/tag/_form.html.twig') }}
 
     <a href="{{ path('app_tag_index') }}">back to list</a>
+</div>
 {% endblock %}
