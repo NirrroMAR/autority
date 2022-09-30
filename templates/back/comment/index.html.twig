@@ -4,6 +4,7 @@
 
 {% block main %}
 <div class="container">
+    <span>countComments: {{ countComments }}</span>
     <div class="overflow-auto">
         <a class="btn btn-success" href="{{ path('app_comment_new') }}">Create new</a>
         <table class="table">
