@@ -1,13 +1,13 @@
-{% extends 'layouts/default.html.twig' %}
+{% extends 'layouts/' ~ data.layout ~ '.html.twig' %}
 
 {% block title %}Edit Comment{% endblock %}
 
 {% block main %}
-    <h1>Edit Comment</h1>
-
+<div class="container">
     {{ include('comment/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('app_comment_index') }}">back to list</a>
 
     {{ include('comment/_delete_form.html.twig') }}
+</div>
 {% endblock %}

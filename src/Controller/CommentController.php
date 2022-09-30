@@ -10,14 +10,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/comment')]
+#[Route('/back/comment')]
 class CommentController extends AbstractController
 {
     #[Route('/', name: 'app_comment_index', methods: ['GET'])]
     public function index(CommentRepository $commentRepository): Response
     {
-        return $this->render('comment/index.html.twig', [
+        return $this->render('back/comment/index.html.twig', [
             'comments' => $commentRepository->findAll(),
+            'data' => [
+                'layout' => 'back',
+                'template' => 'comment/index',
+                'controllerName' => 'CommentController',
+                'pageTitle' => 'Comment index',
+            ]
         ]);
     }
 
@@ -34,17 +40,29 @@ class CommentController extends AbstractController
             return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('comment/new.html.twig', [
+        return $this->renderForm('back/comment/new.html.twig', [
             'comment' => $comment,
             'form' => $form,
+            'data' => [
+                'layout' => 'back',
+                'template' => 'comment/new',
+                'controllerName' => 'CommentController',
+                'pageTitle' => 'New comment',
+            ]
         ]);
     }
 
     #[Route('/{id}', name: 'app_comment_show', methods: ['GET'])]
     public function show(Comment $comment): Response
     {
-        return $this->render('comment/show.html.twig', [
+        return $this->render('back/comment/show.html.twig', [
             'comment' => $comment,
+            'data' => [
+                'layout' => 'back',
+                'template' => 'comment/show',
+                'controllerName' => 'CommentController',
+                'pageTitle' => 'Show comment',
+            ]
         ]);
     }
 
@@ -60,9 +78,15 @@ class CommentController extends AbstractController
             return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('comment/edit.html.twig', [
+        return $this->renderForm('back/comment/edit.html.twig', [
             'comment' => $comment,
             'form' => $form,
+            'data' => [
+                'layout' => 'back',
+                'template' => 'comment/edit',
+                'controllerName' => 'CommentController',
+                'pageTitle' => 'Edit comment',
+            ]
         ]);
     }
 

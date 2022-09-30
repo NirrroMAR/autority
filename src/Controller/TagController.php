@@ -10,14 +10,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/tag')]
+#[Route('/back/tag')]
 class TagController extends AbstractController
 {
     #[Route('/', name: 'app_tag_index', methods: ['GET'])]
     public function index(TagRepository $tagRepository): Response
     {
-        return $this->render('tag/index.html.twig', [
+        return $this->render('back/tag/index.html.twig', [
             'tags' => $tagRepository->findAll(),
+            'data' => [
+                'layout' => 'back',
+                'template' => 'tag/index',
+                'controllerName' => 'TagController',
+                'pageTitle' => 'Tag index',
+            ]
         ]);
     }
 
@@ -34,17 +40,29 @@ class TagController extends AbstractController
             return $this->redirectToRoute('app_tag_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('tag/new.html.twig', [
+        return $this->renderForm('back/tag/new.html.twig', [
             'tag' => $tag,
             'form' => $form,
+            'data' => [
+                'layout' => 'back',
+                'template' => 'tag/new',
+                'controllerName' => 'TagController',
+                'pageTitle' => 'New tag',
+            ]
         ]);
     }
 
     #[Route('/{id}', name: 'app_tag_show', methods: ['GET'])]
     public function show(Tag $tag): Response
     {
-        return $this->render('tag/show.html.twig', [
+        return $this->render('back/tag/show.html.twig', [
             'tag' => $tag,
+            'data' => [
+                'layout' => 'back',
+                'template' => 'tag/show',
+                'controllerName' => 'TagController',
+                'pageTitle' => 'Show tag',
+            ]
         ]);
     }
 
@@ -60,9 +78,15 @@ class TagController extends AbstractController
             return $this->redirectToRoute('app_tag_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('tag/edit.html.twig', [
+        return $this->renderForm('back/tag/edit.html.twig', [
             'tag' => $tag,
             'form' => $form,
+            'data' => [
+                'layout' => 'back',
+                'template' => 'tag/edit',
+                'controllerName' => 'TagController',
+                'pageTitle' => 'Edit tag',
+            ]
         ]);
     }
 

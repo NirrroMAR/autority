@@ -11,14 +11,24 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/user')]
+#[Route('/back/user')]
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
-        return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+        $users = $userRepository->findAll();
+        $countUser = count($users);
+
+        return $this->render('back/user/index.html.twig', [
+            'users' => $users,
+            'countUser' => $countUser,
+            'data' => [
+                'layout' => 'back',
+                'template' => 'user/index',
+                'controllerName' => 'UserController',
+                'pageTitle' => 'User index',
+            ]
         ]);
     }
 
@@ -35,17 +45,29 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('user/new.html.twig', [
+        return $this->renderForm('back/user/new.html.twig', [
             'user' => $user,
             'form' => $form,
+            'data' => [
+                'layout' => 'back',
+                'template' => 'user/new',
+                'controllerName' => 'UserController',
+                'pageTitle' => 'New user',
+            ]
         ]);
     }
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
-        return $this->render('user/show.html.twig', [
+        return $this->render('back/user/show.html.twig', [
             'user' => $user,
+            'data' => [
+                'layout' => 'back',
+                'template' => 'user/show',
+                'controllerName' => 'UserController',
+                'pageTitle' => 'Show user',
+            ]
         ]);
     }
 
@@ -61,9 +83,15 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('user/edit.html.twig', [
+        return $this->renderForm('back/user/edit.html.twig', [
             'user' => $user,
             'form' => $form,
+            'data' => [
+                'layout' => 'back',
+                'template' => 'user/edit',
+                'controllerName' => 'UserController',
+                'pageTitle' => 'Edit user',
+            ]
         ]);
     }
 

@@ -1,0 +1,38 @@
+{% extends 'layouts/' ~ data.layout ~ '.html.twig' %}
+
+{% block title %}Comment index{% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="overflow-auto">
+        <a class="btn btn-success" href="{{ path('app_comment_new') }}">Create new</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>CreatedAt</th>
+                    <th>Content</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for comment in comments %}
+                <tr>
+                    <td>{{ comment.id }}</td>
+                    <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ comment.content }}</td>
+                    <td>
+                        <a href="{{ path('app_comment_show', {'id': comment.id}) }}">show</a>
+                        <a href="{{ path('app_comment_edit', {'id': comment.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

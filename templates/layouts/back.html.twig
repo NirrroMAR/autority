@@ -19,8 +19,16 @@
             {% include "parts/header.html.twig" %}
             {% endblock %}
         </header>
-            <span>layoutback</span>
         <main>
+            {% block backNav %}
+            <div class="container">
+                <a class="" href="{{ path('app_user_index') }}">User index</a>
+                <a class="" href="{{ path('app_post_index') }}">Post index</a>
+                <a class="" href="{{ path('app_comment_index') }}">Comment index</a>
+                <a class="" href="{{ path('app_tag_index') }}">Tag index</a>
+            </div>
+            {% endblock %}
+            {{ component('ptb', {title: data.pageTitle}) }}
             {% block main %}
             {% endblock %}
         </main>

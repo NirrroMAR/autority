@@ -1,11 +1,11 @@
-{% extends 'layouts/default.html.twig' %}
+{% extends 'layouts/' ~ data.layout ~ '.html.twig' %}
 
 {% block title %}New Comment{% endblock %}
 
 {% block main %}
-    <h1>Create new Comment</h1>
-
+<div class="container">
     {{ include('comment/_form.html.twig') }}
 
     <a href="{{ path('app_comment_index') }}">back to list</a>
+</div>
 {% endblock %}

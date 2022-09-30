@@ -10,14 +10,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/post')]
+#[Route('/back/post')]
 class PostController extends AbstractController
 {
     #[Route('/', name: 'app_post_index', methods: ['GET'])]
     public function index(PostRepository $postRepository): Response
     {
-        return $this->render('post/index.html.twig', [
+        return $this->render('back/post/index.html.twig', [
             'posts' => $postRepository->findAll(),
+            'data' => [
+                'layout' => 'back',
+                'template' => 'post/index',
+                'controllerName' => 'PostController',
+                'pageTitle' => 'Post index',
+            ]
         ]);
     }
 
@@ -36,17 +42,29 @@ class PostController extends AbstractController
             return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('post/new.html.twig', [
+        return $this->renderForm('back/post/new.html.twig', [
             'post' => $post,
             'form' => $form,
+            'data' => [
+                'layout' => 'back',
+                'template' => 'post/new',
+                'controllerName' => 'PostController',
+                'pageTitle' => 'New post',
+            ]
         ]);
     }
 
     #[Route('/{id}', name: 'app_post_show', methods: ['GET'])]
     public function show(Post $post): Response
     {
-        return $this->render('post/show.html.twig', [
+        return $this->render('back/post/show.html.twig', [
             'post' => $post,
+            'data' => [
+                'layout' => 'back',
+                'template' => 'post/show',
+                'controllerName' => 'PostController',
+                'pageTitle' => 'Show post',
+            ]
         ]);
     }
 
@@ -62,9 +80,15 @@ class PostController extends AbstractController
             return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('post/edit.html.twig', [
+        return $this->renderForm('back/post/edit.html.twig', [
             'post' => $post,
             'form' => $form,
+            'data' => [
+                'layout' => 'back',
+                'template' => 'post/edit',
+                'controllerName' => 'PostController',
+                'pageTitle' => 'Edit post',
+            ]
         ]);
     }
 

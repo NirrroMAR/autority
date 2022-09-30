@@ -1,10 +1,9 @@
-{% extends 'layouts/default.html.twig' %}
+{% extends 'layouts/' ~ data.layout ~ '.html.twig' %}
 
 {% block title %}Comment{% endblock %}
 
 {% block main %}
-    <h1>Comment</h1>
-
+<div class="container">
     <table class="table">
         <tbody>
             <tr>
@@ -27,4 +26,5 @@
     <a href="{{ path('app_comment_edit', {'id': comment.id}) }}">edit</a>
 
     {{ include('comment/_delete_form.html.twig') }}
+</div>
 {% endblock %}
