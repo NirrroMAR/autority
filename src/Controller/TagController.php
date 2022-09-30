@@ -15,9 +15,11 @@ class TagController extends AbstractController
 {
     #[Route('/', name: 'app_tag_index', methods: ['GET'])]
     public function index(TagRepository $tagRepository): Response
-    {
+    {   $tags = $tagRepository->findAll();
+        $countTags = count($tags);
         return $this->render('back/tag/index.html.twig', [
-            'tags' => $tagRepository->findAll(),
+            'tags' => $tags,
+            'countTags' => $countTags,
             'data' => [
                 'layout' => 'back',
                 'template' => 'tag/index',

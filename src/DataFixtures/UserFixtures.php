@@ -19,6 +19,7 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        // create nico user
         $date = new \DatetimeImmutable('now');
         $admin = new User();
         $password = $this->hasher->hashPassword($admin, '0000');
@@ -32,6 +33,7 @@ class UserFixtures extends Fixture
         $this->addReference('admin1', $admin);
         echo 'user created: ' . $admin->getEmail() . PHP_EOL;
 
+        // create titouan user
         $admin = new User();
         $password = $this->hasher->hashPassword($admin, '0000');
         $admin->setEmail('titouan.thd@gmail.com')
@@ -44,7 +46,8 @@ class UserFixtures extends Fixture
         $this->addReference('admin2', $admin);
         echo 'user created: ' . $admin->getEmail() . PHP_EOL;
 
-        for ($i = 0; $i < 50; $i++) {
+        // create 5 Fake user
+        for ($i = 0; $i < 5; $i++) {
             $user = new User();
             $password = $this->hasher->hashPassword($user, '0000');
             $user->setEmail('user' . $i . '@gmail.com')

@@ -3,12 +3,12 @@
 namespace App\DataFixtures;
 
 
-use App\Entity\Post;
+use App\Entity\Comment;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class PostFixtures extends Fixture implements DependentFixtureInterface
+class CommentFixtures extends Fixture implements DependentFixtureInterface
 {
 
     public function load(ObjectManager $manager): void
@@ -17,17 +17,15 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
     
 
         for ($i = 0; $i < 100; $i++) {
-            $post = new Post();
-            $post->setTitle('post' . $i)
-                ->setContent('content' . $i)
+            $comment = new Comment();
+            $comment->setContent('content' . $i)
                 ->setCreatedAt($date)
-                ->setUpdatedAt($date)
                 ->setAuthor($this->getReference('admin1'))
-                ->setSlug("post-" .$i);
+                ->setPost($this->getReference('post'.$i));
 
-            $manager->persist($post);
-            echo 'post created: ' . $post->getTitle() . PHP_EOL;
-            $this->addReference('post' . $i, $post);
+            $manager->persist($comment);
+            echo 'comment created: ' . $comment->getContent() . PHP_EOL;
+            $this->addReference('comment' . $i, $comment);
         }
         $manager->flush();
     }
@@ -35,7 +33,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            UserFixtures::class,
+            PostFixtures::class,
         ];
     }
 }
