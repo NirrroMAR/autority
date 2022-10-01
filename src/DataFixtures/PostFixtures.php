@@ -15,7 +15,6 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
     {
         $date = new \DatetimeImmutable('now');
     
-
         for ($i = 0; $i < 50; $i++) {
             $post = new Post();
             $post->setTitle('post' . $i)
