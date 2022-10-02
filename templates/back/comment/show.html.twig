@@ -1,30 +1,52 @@
 {% extends 'layouts/' ~ data.layout ~ '.html.twig' %}
 
-{% block title %}Comment{% endblock %}
+{% block title %}Comment
+{% endblock %}
 
 {% block main %}
-<div class="container">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ comment.id }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ comment.content }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_comment_index') }}">back to list</a>
-
-    <a href="{{ path('app_comment_edit', {'id': comment.id}) }}">edit</a>
-
-    {{ include('comment/_delete_form.html.twig') }}
-</div>
+	<div class="container">
+		<div class="d-flex justify-content-between flex-wrap gap-2">
+			<a class="btn btn-secondary text-nowrap mb-3" href="{{ path('app_comment_index') }}"><i class="bi bi-arrow-return-left me-1"></i> back to list</a>
+			<a class="btn btn-primary text-nowrap mb-3" href="{{ path('app_comment_edit', {'id': comment.id}) }}">edit <i class="bi bi-pencil"></i></a>
+		</div>
+		<div class="overflow-auto border rounded">
+			<table class="table table-hover mb-0">
+				<thead>
+					<tr>
+						<th>Data</th>
+						<th>Value</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>Id</th>
+						<td>{{ comment.id }}</td>
+					</tr>
+					<tr>
+						<th>CreatedAt</th>
+						<td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+					</tr>
+					<tr>
+						<th>Content</th>
+						<td>{{ comment.content }}</td>
+					</tr>
+					<tr>
+						<th>Author</th>
+						<td>
+							<a class="text-decoration-none text-secondary mx-1" href="{{ path('app_user_show', {id: comment.author.id}) }}">{{ comment.author.email }}</a>
+						</td>
+					</tr>
+					<tr>
+						<th>Post</th>
+						<td>
+							<a class="text-decoration-none text-secondary mx-1" href="{{ path('app_post_show', {id: comment.post.id}) }}">{{ comment.post.title }}</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		{# <div class="d-flex justify-content-end">
+		        {{ include('back/comment/_delete_form.html.twig') }}
+		    </div> #}
+	</div>
 {% endblock %}

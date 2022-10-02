@@ -1,13 +1,17 @@
 {% extends 'layouts/' ~ data.layout ~ '.html.twig' %}
 
-{% block title %}Edit Tag{% endblock %}
+{% block title %}Edit Tag
+{% endblock %}
 
 {% block main %}
-    <h1>Edit Tag</h1>
-
-    {{ include('tag/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_tag_index') }}">back to list</a>
-
-    {{ include('tag/_delete_form.html.twig') }}
+	<div class="container">
+		<div class="d-flex justify-content-between flex-wrap gap-3">
+			<a class="btn btn-secondary text-nowrap" href="{{ path('app_tag_index') }}"><i class="bi bi-arrow-return-left me-1"></i> back to list</a>
+			<div class="d-flex gap-2">
+				{{ include('back/tag/_delete_form.html.twig') }}
+				<a class="btn btn-outline-secondary text-nowrap" href="{{ path('app_tag_show', {'id': tag.id}) }}">show <i class="bi bi-eye"></i></a>
+			</div>
+		</div>
+		{{ include('back/tag/_form.html.twig', {'button_label': 'update'}) }}
+	</div>
 {% endblock %}

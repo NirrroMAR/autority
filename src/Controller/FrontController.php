@@ -18,6 +18,7 @@ class FrontController extends AbstractController
                 'template' => 'index',
                 'controllerName' => 'FrontController',
                 'pageTitle' => 'Front index',
+                'debug_mode' => $this->getParameter('app.debug_mode')
             ]
         ]);
     }

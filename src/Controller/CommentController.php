@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
+use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +26,7 @@ class CommentController extends AbstractController
                 'template' => 'comment/index',
                 'controllerName' => 'CommentController',
                 'pageTitle' => 'Comment index',
+                'debug_mode' => $this->getParameter('app.debug_mode')
             ]
         ]);
     }
@@ -32,14 +34,18 @@ class CommentController extends AbstractController
     #[Route('/new', name: 'app_comment_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CommentRepository $commentRepository): Response
     {
+        $date = new DateTimeImmutable('now');
         $comment = new Comment();
+
+        $comment->setCreatedAt($date);
+        
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $commentRepository->add($comment, true);
-
-            return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Comment created successfully');
+            return $this->redirectToRoute('app_comment_edit', ['id' => $comment->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('back/comment/new.html.twig', [
@@ -50,6 +56,7 @@ class CommentController extends AbstractController
                 'template' => 'comment/new',
                 'controllerName' => 'CommentController',
                 'pageTitle' => 'New comment',
+                'debug_mode' => $this->getParameter('app.debug_mode')
             ]
         ]);
     }
@@ -64,6 +71,7 @@ class CommentController extends AbstractController
                 'template' => 'comment/show',
                 'controllerName' => 'CommentController',
                 'pageTitle' => 'Show comment',
+                'debug_mode' => $this->getParameter('app.debug_mode')
             ]
         ]);
     }
@@ -76,7 +84,7 @@ class CommentController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $commentRepository->add($comment, true);
-
+            $this->addFlash('success', 'Comment updated successfully');
             return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -88,6 +96,7 @@ class CommentController extends AbstractController
                 'template' => 'comment/edit',
                 'controllerName' => 'CommentController',
                 'pageTitle' => 'Edit comment',
+                'debug_mode' => $this->getParameter('app.debug_mode')
             ]
         ]);
     }
@@ -98,7 +107,7 @@ class CommentController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
             $commentRepository->remove($comment, true);
         }
-
+        $this->addFlash('success', 'Comment deleted successfully');
         return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
     }
 }

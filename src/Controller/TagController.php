@@ -25,6 +25,7 @@ class TagController extends AbstractController
                 'template' => 'tag/index',
                 'controllerName' => 'TagController',
                 'pageTitle' => 'Tag index',
+                'debug_mode' => $this->getParameter('app.debug_mode'),
             ]
         ]);
     }
@@ -38,7 +39,7 @@ class TagController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $tagRepository->add($tag, true);
-
+            $this->addFlash('success', 'Tag created successfully');
             return $this->redirectToRoute('app_tag_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -50,6 +51,7 @@ class TagController extends AbstractController
                 'template' => 'tag/new',
                 'controllerName' => 'TagController',
                 'pageTitle' => 'New tag',
+                'debug_mode' => $this->getParameter('app.debug_mode'),
             ]
         ]);
     }
@@ -64,6 +66,7 @@ class TagController extends AbstractController
                 'template' => 'tag/show',
                 'controllerName' => 'TagController',
                 'pageTitle' => 'Show tag',
+                'debug_mode' => $this->getParameter('app.debug_mode'),
             ]
         ]);
     }
@@ -76,7 +79,7 @@ class TagController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $tagRepository->add($tag, true);
-
+            $this->addFlash("success", "Tag updated successfully");
             return $this->redirectToRoute('app_tag_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -88,6 +91,7 @@ class TagController extends AbstractController
                 'template' => 'tag/edit',
                 'controllerName' => 'TagController',
                 'pageTitle' => 'Edit tag',
+                'debug_mode' => $this->getParameter('app.debug_mode'),
             ]
         ]);
     }
@@ -98,7 +102,7 @@ class TagController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$tag->getId(), $request->request->get('_token'))) {
             $tagRepository->remove($tag, true);
         }
-
+        $this->addFlash("success", "Tag deleted successfully");
         return $this->redirectToRoute('app_tag_index', [], Response::HTTP_SEE_OTHER);
     }
 }

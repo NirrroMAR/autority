@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class PostType extends AbstractType
 {
@@ -17,13 +18,13 @@ class PostType extends AbstractType
         $builder
             ->add('slug')
             ->add('title')
-            ->add('content')
-            // ->add('createdAt',DateTimeType::class,['widget'=>'single_text'])
-            // ->add('updatedAt',DateTimeType::class,['widget'=>'single_text'])
-            ->add('author', EntityType::class,[
+            ->add('content', HiddenType::class)
+            ->add('author', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'email'
             ])
+            // ->add('createdAt',DateTimeType::class,['widget'=>'single_text'])
+            // ->add('updatedAt',DateTimeType::class,['widget'=>'single_text'])
         ;
     }
 

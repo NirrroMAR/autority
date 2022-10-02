@@ -4,16 +4,22 @@
 
 {% block main %}
     <div class="container">
-        <span>countUser: {{ countUser }}</span>
-        <div class="overflow-auto">
-            <table class="table">
+        <div class="d-flex flex-wrap justify-content-between gap-3 mb-3">
+            <a class="btn btn-secondary text-nowrap" href="{{ path('app_back') }}"><i class="bi bi-arrow-return-left me-1"></i> back to dashboard</a>
+            <div class="d-flex gap-2">
+                <span class="btn btn-outline-dark disabled text-nowrap">countUser: {{ countUser }}</span>
+                <a class="btn btn-success text-nowrap" href="{{ path('app_user_new') }}">create new <i class="bi bi-plus-circle ms-1"></i></a>
+            </div>
+        </div>
+        <div class="overflow-auto border rounded">
+            <table class="table table-hover mb-0">
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Email</th>
                         <th>Roles</th>
-                        <th>Password</th>
-                        <th>CreatedAt</th>
+                        {# <th>Password</th> #}
+                        {# <th>CreatedAt</th> #}
                         <th>UpdatedAt</th>
                         <th>actions</th>
                     </tr>
@@ -24,12 +30,12 @@
                         <td>{{ user.id }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                        <td>{{ user.password }}</td>
-                        <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                        {# <td>{{ user.password }}</td> #}
+                        {# <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td> #}
                         <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                         <td>
-                            <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                            <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                            <a class="text-decoration-none text-secondary mx-1" href="{{ path('app_user_show', {'id': user.id}) }}">show <i class="bi bi-eye"></i></a>
+                            <a class="text-decoration-none mx-1" href="{{ path('app_user_edit', {'id': user.id}) }}">edit <i class="bi bi-pencil"></i></a>
                         </td>
                     </tr>
                 {% else %}
@@ -40,7 +46,5 @@
                 </tbody>
             </table>
         </div>
-
-        <a href="{{ path('app_user_new') }}">Create new</a>
     </div>
 {% endblock %}

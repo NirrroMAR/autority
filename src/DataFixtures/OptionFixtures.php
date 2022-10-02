@@ -10,14 +10,19 @@ class OptionFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        for ($i=0; $i < 10; $i++) { 
-            # code...
-            $option = new Option();
-            $option->setOptionKey('option' .$i)->setValue('value' .$i);
-            $manager->persist($option);
-            echo 'option created: ' . $option->getOptionKey() . PHP_EOL;
-            $this->addReference('option' . $i, $option);
-        }
+        $option = new Option();
+        $option->setOptionKey('debug_status')->setValue('true');
+        $manager->persist($option);
+        echo 'option created: ' . $option->getOptionKey() . PHP_EOL;
+        $this->addReference('debug_status', $option);
+
+        // for ($i=0; $i < 10; $i++) { 
+        //     $option = new Option();
+        //     $option->setOptionKey('option' .$i)->setValue('value' .$i);
+        //     $manager->persist($option);
+        //     echo 'option created: ' . $option->getOptionKey() . PHP_EOL;
+        //     $this->addReference('option' . $i, $option);
+        // }
 
         $manager->flush();
     }

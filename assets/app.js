@@ -13,3 +13,5 @@ import './stimulus';
 
 // import bootstrap js
 import 'bootstrap';
+// import bootstrap icons
+require('bootstrap-icons/font/bootstrap-icons.css');

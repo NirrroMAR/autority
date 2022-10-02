@@ -25,6 +25,7 @@ class PostController extends AbstractController
                 'template' => 'post/index',
                 'controllerName' => 'PostController',
                 'pageTitle' => 'Post index',
+                'debug_mode' => $this->getParameter('app.debug_mode')
             ]
         ]);
     }
@@ -33,15 +34,18 @@ class PostController extends AbstractController
     public function new(Request $request, PostRepository $postRepository): Response
     {
         $post = new Post();
+        $date = new \DateTimeImmutable('now');
+
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
-        $date = new \DateTimeImmutable('now');
+
         $post->setUpdatedAt($date);
         $post->setCreatedAt($date);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $postRepository->add($post, true);
-
-            return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Post created successfully');
+            return $this->redirectToRoute('app_post_edit', ['id' => $post->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('back/post/new.html.twig', [
@@ -52,6 +56,7 @@ class PostController extends AbstractController
                 'template' => 'post/new',
                 'controllerName' => 'PostController',
                 'pageTitle' => 'New post',
+                'debug_mode' => $this->getParameter('app.debug_mode')
             ]
         ]);
     }
@@ -66,6 +71,7 @@ class PostController extends AbstractController
                 'template' => 'post/show',
                 'controllerName' => 'PostController',
                 'pageTitle' => 'Show post',
+                'debug_mode' => $this->getParameter('app.debug_mode')
             ]
         ]);
     }
@@ -78,8 +84,8 @@ class PostController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $postRepository->add($post, true);
-
-            return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Post updated successfully');
+            return $this->redirectToRoute('app_post_edit', ['id' => $post->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('back/post/edit.html.twig', [
@@ -90,6 +96,7 @@ class PostController extends AbstractController
                 'template' => 'post/edit',
                 'controllerName' => 'PostController',
                 'pageTitle' => 'Edit post',
+                'debug_mode' => $this->getParameter('app.debug_mode'),
             ]
         ]);
     }
@@ -100,7 +107,7 @@ class PostController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
             $postRepository->remove($post, true);
         }
-
+        $this->addFlash('success', 'Post deleted successfully');
         return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
     }
 }

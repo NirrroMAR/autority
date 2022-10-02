@@ -6,6 +6,7 @@
         "@symfony/stimulus-bridge": "^3.2.0",
         "@symfony/webpack-encore": "^4.0.0",
         "bootstrap": "^5.2.1",
+        "bootstrap-icons": "^1.9.1",
         "core-js": "^3.23.0",
         "regenerator-runtime": "^0.13.9",
         "sass": "^1.55.0",
@@ -21,5 +22,9 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "@ckeditor/ckeditor5-markdown-gfm": "^35.1.0",
+        "file-loader": "^6.2.0"
     }
 }

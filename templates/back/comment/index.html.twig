@@ -4,10 +4,16 @@
 
 {% block main %}
 <div class="container">
-    <span>countComments: {{ countComments }}</span>
-    <div class="overflow-auto">
-        <a class="btn btn-success" href="{{ path('app_comment_new') }}">Create new</a>
-        <table class="table">
+    <div class="d-flex flex-wrap justify-content-between gap-3 mb-3">
+        <a class="btn btn-secondary text-nowrap" href="{{ path('app_back') }}"><i class="bi bi-arrow-return-left me-1"></i> back to dashboard</a>
+        <div class="d-flex gap-2">
+            <span class="btn btn-outline-dark disabled text-nowrap">countComments: {{ countComments }}</span>
+            <a class="btn btn-success text-nowrap" href="{{ path('app_comment_new') }}">create new <i class="bi bi-plus-circle ms-1"></i></a>
+        </div>
+    </div>
+
+    <div class="overflow-auto border rounded">
+        <table class="table table-hover mb-0">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -23,8 +29,8 @@
                     <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                     <td>{{ comment.content }}</td>
                     <td>
-                        <a href="{{ path('app_comment_show', {'id': comment.id}) }}">show</a>
-                        <a href="{{ path('app_comment_edit', {'id': comment.id}) }}">edit</a>
+                        <a class="text-decoration-none text-secondary mx-1" href="{{ path('app_comment_show', {'id': comment.id}) }}">show <i class="bi bi-eye"></i></a>
+                        <a class="text-decoration-none mx-1" href="{{ path('app_comment_edit', {'id': comment.id}) }}">edit <i class="bi bi-pencil"></i></a>
                     </td>
                 </tr>
             {% else %}

@@ -27,7 +27,8 @@ class UserFixtures extends Fixture
             ->setPassword($password)
             ->setRoles(['ROLE_ADMIN'])
             ->setCreatedAt($date)
-            ->setUpdatedAt($date);
+            ->setUpdatedAt($date)
+            ->setAvatar('https://avatars.githubusercontent.com/u/113260786?v=4');
 
         $manager->persist($admin);
         $this->addReference('admin1', $admin);
@@ -40,7 +41,8 @@ class UserFixtures extends Fixture
             ->setPassword($password)
             ->setRoles(['ROLE_ADMIN'])
             ->setCreatedAt($date)
-            ->setUpdatedAt($date);
+            ->setUpdatedAt($date)
+            ->setAvatar('https://avatars.githubusercontent.com/u/113260787?v=4');
 
         $manager->persist($admin);
         $this->addReference('admin2', $admin);
@@ -54,7 +56,8 @@ class UserFixtures extends Fixture
                 ->setPassword($password)
                 ->setRoles(['ROLE_USER'])
                 ->setCreatedAt($date)
-                ->setUpdatedAt($date);
+                ->setUpdatedAt($date)
+                ->setAvatar('https://avatars.githubusercontent.com/u/11326078'.$i.'?v=4');
 
             $manager->persist($user);
             echo 'user created: ' . $user->getEmail() . PHP_EOL;

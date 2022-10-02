@@ -18,8 +18,8 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
 
         for ($i = 0; $i < 100; $i++) {
             $post = new Post();
-            $post->setTitle('post' . $i)
-                ->setContent('content' . $i)
+            $post->setTitle('Post ' . $i)
+                ->setContent('content ' . $i)
                 ->setCreatedAt($date)
                 ->setUpdatedAt($date)
                 ->setAuthor($this->getReference('admin1'))

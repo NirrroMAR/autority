@@ -17,6 +17,7 @@ class BackController extends AbstractController
                 'template' => 'index',
                 'controllerName' => 'BackController',
                 'pageTitle' => 'Back index',
+                'debug_mode' => $this->getParameter('app.debug_mode')
             ]
         ]);
     }

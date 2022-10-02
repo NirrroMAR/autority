@@ -8,9 +8,9 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+            <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
         {% endblock %}
     </head>
     <body>
@@ -22,6 +22,7 @@
         <main>
             {% block backNav %}
             <div class="container">
+                {% include "parts/alerts.html.twig" %}
                 <a class="" href="{{ path('app_user_index') }}">User index</a>
                 <a class="" href="{{ path('app_post_index') }}">Post index</a>
                 <a class="" href="{{ path('app_comment_index') }}">Comment index</a>
